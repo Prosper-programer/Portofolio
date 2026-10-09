@@ -1,49 +1,71 @@
 @import "tailwindcss";
 
 @theme {
-  --color-warm-ivory: #F8F7F2;
-  --color-deep-charcoal: #202522;
-  --color-emerald: #237A57;
-  --color-soft-sage: #DDE8DF;
-}
-
-:root {
-  /* Global Design Tokens */
+  /* Original Palette */
   --color-warm-ivory: #F8F7F2;
   --color-deep-charcoal: #202522;
   --color-emerald: #237A57;
   --color-soft-sage: #DDE8DF;
   --color-white: #FFFFFF;
 
-  /* Aliasing starter variables to our new design system */
-  --text: var(--color-deep-charcoal);
-  --text-h: var(--color-deep-charcoal);
-  --bg: var(--color-warm-ivory);
-  --border: var(--color-soft-sage);
-  --code-bg: var(--color-white);
-  --accent: var(--color-emerald);
-  --accent-bg: var(--color-soft-sage);
-  --accent-border: var(--color-emerald);
-  --social-bg: var(--color-white);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+  /* Semantic Tokens for Theme Support */
+  --color-bg-main: var(--bg-main);
+  --color-text-main: var(--text-main);
+  --color-text-muted: var(--text-muted);
+  --color-bg-nav: var(--bg-nav);
+  --color-border-subtle: var(--border-subtle);
+  --color-bg-hover: var(--bg-hover);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-text: var(--accent-text);
+}
 
+:root {
+  /* Light Mode (Warm Minimal + Emerald) */
+  --bg-main: #F8F7F2;
+  --text-main: #202522;
+  --text-muted: #4a5550;
+  --bg-nav: rgba(248, 247, 242, 0.9);
+  --border-subtle: #DDE8DF;
+  --bg-hover: rgba(221, 232, 223, 0.5);
+  --accent: #237A57;
+  --accent-hover: #1e6b4c;
+  --accent-text: #F8F7F2;
+
+  /* Legacy aliases */
+  --text: var(--text-main);
+  --text-h: var(--text-main);
+  --bg: var(--bg-main);
+  --border: var(--border-subtle);
+  --code-bg: var(--bg-hover);
+  
   --sans: system-ui, -apple-system, sans-serif;
   --heading: system-ui, -apple-system, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
 
   font: 18px/145% var(--sans);
   letter-spacing: 0.18px;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  color: var(--text-main);
+  background: var(--bg-main);
+}
 
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
+.dark {
+  /* Dark Mode */
+  --bg-main: #121413;
+  --text-main: #F8F7F2;
+  --text-muted: #a3b3aa;
+  --bg-nav: rgba(18, 20, 19, 0.9);
+  --border-subtle: #2A322D;
+  --bg-hover: rgba(42, 50, 45, 0.6);
+  --accent: #298F66;
+  --accent-hover: #32a87a;
+  --accent-text: #F8F7F2;
+  
+  --text: var(--text-main);
+  --text-h: var(--text-main);
+  --bg: var(--bg-main);
+  --border: var(--border-subtle);
+  --code-bg: var(--bg-hover);
 }
 
 /* Global Sensible Defaults */
@@ -53,18 +75,29 @@
 
 body {
   margin: 0;
-  background-color: var(--color-warm-ivory);
-  color: var(--color-deep-charcoal);
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body,
+  header,
+  header * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }
 
 @layer base {
   a {
-    color: var(--color-emerald);
+    color: var(--accent);
     text-decoration: none;
+    transition: color 0.3s ease;
   }
 
   a:hover {
     text-decoration: underline;
   }
 }
-
